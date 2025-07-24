@@ -6,11 +6,11 @@
 //
 
 public struct ProductDTO: Decodable {
-    public let name: String
     public let image: String
+    public let name: String
     
-    public init(name: String, image: String) {
-        self.name = name
+    public init(image: String, name: String) {
         self.image = image
+        self.name = name
     }
 }
