@@ -21,9 +21,9 @@ let package = Package(
             dependencies: [],
             path: "Sources/MarketData"
         ),
-        /*.testTarget(
+        .testTarget(
             name: "MarketDataTests",
             dependencies: ["MarketData"]
-        )*/
+        )
     ]
 )

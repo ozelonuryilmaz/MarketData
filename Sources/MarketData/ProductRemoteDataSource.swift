@@ -13,9 +13,9 @@ public protocol IProductRemoteDataSource {
 }
 
 public final class ProductRemoteDataSource: IProductRemoteDataSource {
-    private let networkManager: NetworkManager
+    private let networkManager: INetworkManager
 
-    public init(networkManager: NetworkManager) {
+    public init(networkManager: INetworkManager) {
         self.networkManager = networkManager
     }
 
