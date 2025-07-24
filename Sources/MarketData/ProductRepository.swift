@@ -14,7 +14,7 @@ public protocol IProductRepository {
 public final class ProductRepository: IProductRepository {
     private let remoteDataSource: IProductRemoteDataSource
 
-    init(remoteDataSource: IProductRemoteDataSource) {
+    public init(remoteDataSource: IProductRemoteDataSource) {
         self.remoteDataSource = remoteDataSource
     }
 
