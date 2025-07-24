@@ -6,6 +6,6 @@
 //
 
 public struct ProductDTO: Decodable {
-    public let image: String
-    public let name: String
+    internal let image: String
+    internal let name: String
 }

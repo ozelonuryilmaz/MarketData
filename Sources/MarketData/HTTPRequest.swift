@@ -7,20 +7,20 @@
 
 import Foundation
 
-public struct HTTPRequest {
-    public let url: URL
-    public let method: HTTPMethod
-    public let headers: [String: String]?
-    public let body: Data?
+internal struct HTTPRequest {
+    internal let url: URL
+    internal let method: HTTPMethod
+    internal let headers: [String: String]?
+    internal let body: Data?
     
-    public init(url: URL, method: HTTPMethod = .get, headers: [String: String]? = nil, body: Data? = nil) {
+    internal init(url: URL, method: HTTPMethod = .get, headers: [String: String]? = nil, body: Data? = nil) {
         self.url = url
         self.method = method
         self.headers = headers
         self.body = body
     }
     
-    public init<E: Encodable>(url: URL, method: HTTPMethod = .post, headers: [String: String]? = ["Content-Type": "application/json"], bodyObject: E) {
+    internal init<E: Encodable>(url: URL, method: HTTPMethod = .post, headers: [String: String]? = ["Content-Type": "application/json"], bodyObject: E) {
         let encoder = JSONEncoder()
         let body = try? encoder.encode(bodyObject)
         self.init(url: url, method: method, headers: headers, body: body)

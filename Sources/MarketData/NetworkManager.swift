@@ -8,14 +8,14 @@
 import Foundation
 import Combine
 
-public protocol INetworkManager {
+internal protocol INetworkManager {
     func request<T: Decodable>(_ request: HTTPRequest) -> AnyPublisher<T, NetworkError>
 }
 
-public final class NetworkManager: INetworkManager {
-    public init() {}
+internal final class NetworkManager: INetworkManager {
+    internal init() {}
 
-    public func request<T: Decodable>(_ request: HTTPRequest) -> AnyPublisher<T, NetworkError> {
+    internal func request<T: Decodable>(_ request: HTTPRequest) -> AnyPublisher<T, NetworkError> {
         var urlRequest = URLRequest(url: request.url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
