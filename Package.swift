@@ -19,7 +19,10 @@ let package = Package(
         .target(
             name: "MarketData",
             dependencies: [],
-            path: "Sources/MarketData"
+            path: "Sources/MarketData",
+            resources: [
+                .process("CoreDataManager/MarketData.xcdatamodeld")
+            ]
         ),
         .testTarget(
             name: "MarketDataTests",
