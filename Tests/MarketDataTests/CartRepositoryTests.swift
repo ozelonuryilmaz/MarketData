@@ -4,14 +4,14 @@ import Combine
 
 final class CartRepositoryTests: XCTestCase {
 
-    private var sut: CartRepositoryImpl!
+    private var sut: CartRepository!
     private var mockDataSource: MockCartLocalDataSource!
     private var cancellables: Set<AnyCancellable>!
 
     override func setUp() {
         super.setUp()
         mockDataSource = MockCartLocalDataSource()
-        sut = CartRepositoryImpl(localDataSource: mockDataSource)
+        sut = CartRepository(localDataSource: mockDataSource)
         cancellables = []
     }
 

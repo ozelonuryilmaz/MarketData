@@ -5,6 +5,7 @@
 //  Created by Onur Yılmaz on 25.07.2025.
 //
 
+import Foundation
 import CoreData
 
 @objc(CartItemEntity)
