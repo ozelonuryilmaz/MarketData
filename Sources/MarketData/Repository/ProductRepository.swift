@@ -11,6 +11,7 @@ public protocol IProductRepository {
     func fetchProducts(page: Int, limit: Int) -> AnyPublisher<[ProductDTO], NetworkError>
 }
 
+// MARK: In the future, we can decide between using Remote or Local data here
 public final class ProductRepository: IProductRepository {
     private let remoteDataSource: IProductRemoteDataSource
 
@@ -19,7 +20,6 @@ public final class ProductRepository: IProductRepository {
     }
 
     public func fetchProducts(page: Int, limit: Int) -> AnyPublisher<[ProductDTO], NetworkError> {
-        // In the future, we can decide between using Remote or Local data here
         return remoteDataSource.fetchProducts(page: page, limit: limit)
     }
 }

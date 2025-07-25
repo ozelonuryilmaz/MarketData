@@ -13,6 +13,7 @@ public protocol ICartRepository {
     func fetchCartItems() -> AnyPublisher<[ProductCartDTO], Error>
 }
 
+// MARK: In the future, we can decide between using Remote or Local data here
 public final class CartRepositoryImpl: ICartRepository {
     private let localDataSource: ICartLocalDataSource
 

@@ -21,7 +21,7 @@ let package = Package(
             dependencies: [],
             path: "Sources/MarketData",
             resources: [
-                .process("CoreDataManager/MarketData.xcdatamodeld")
+                .process("CoreDataManager/MarketData.xcdatamodel")
             ]
         ),
         .testTarget(
