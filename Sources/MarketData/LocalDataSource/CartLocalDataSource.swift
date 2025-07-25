@@ -16,8 +16,9 @@ public protocol ICartLocalDataSource {
 public final class CartLocalDataSource: ICartLocalDataSource {
     private let coreData: BaseCoreDataService<CartItemEntity, ProductCartDTO>
 
-    public init(coreData: BaseCoreDataService<CartItemEntity, ProductCartDTO>) {
-        self.coreData = coreData
+    public init() {
+        let context = CoreDataStack.shared.context
+        self.coreData = BaseCoreDataService<CartItemEntity, ProductCartDTO>(context: context)
     }
 
     public func saveCartItem(_ dto: ProductCartDTO) -> AnyPublisher<Void, Error> {

@@ -14,7 +14,7 @@ public protocol ICartRepository {
 }
 
 // MARK: In the future, we can decide between using Remote or Local data here
-public final class CartRepositoryImpl: ICartRepository {
+public final class CartRepository: ICartRepository {
     private let localDataSource: ICartLocalDataSource
 
     public init(localDataSource: ICartLocalDataSource) {

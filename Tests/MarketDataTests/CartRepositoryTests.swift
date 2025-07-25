@@ -24,7 +24,7 @@ final class CartRepositoryTests: XCTestCase {
 
     func test_saveCartItem_shouldCallLocalDataSource() {
         // GIVEN
-        let expected = ProductCartDTO(name: "Apple", quantity: 1, price: "10")
+        let expected = ProductCartDTO(id: "1", name: "Apple", quantity: 1, price: "10")
         let expectation = self.expectation(description: "Should save item")
 
         // WHEN
@@ -46,7 +46,7 @@ final class CartRepositoryTests: XCTestCase {
 
     func test_fetchCartItems_shouldReturnMockData() {
         // GIVEN
-        let mockItem = ProductCartDTO(name: "Apple", quantity: 1, price: "10")
+        let mockItem = ProductCartDTO(id: "1", name: "Apple", quantity: 1, price: "10")
         mockDataSource.stubbedItems = [mockItem]
         let expectation = self.expectation(description: "Should fetch items")
 

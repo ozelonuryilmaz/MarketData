@@ -7,10 +7,10 @@
 
 import CoreData
 
-public final class BaseCoreDataService<Entity: NSManagedObject, DTO> {
+public class BaseCoreDataService<Entity: NSManagedObject, DTO> {
     let context: NSManagedObjectContext
 
-    init(context: NSManagedObjectContext) {
+    public init(context: NSManagedObjectContext) {
         self.context = context
     }
 
@@ -22,13 +22,13 @@ public final class BaseCoreDataService<Entity: NSManagedObject, DTO> {
         fatalError("Subclasses must override mapToEntity")
     }
 
-    func save(dto: DTO) throws {
+    public func save(dto: DTO) throws {
         let entity = Entity(context: context)
         mapToEntity(dto: dto, entity: entity)
         try context.save()
     }
 
-    func fetchAll() throws -> [DTO] {
+    public func fetchAll() throws -> [DTO] {
         let request = Entity.fetchRequest()
         guard let result = try context.fetch(request) as? [Entity] else {
             return []
