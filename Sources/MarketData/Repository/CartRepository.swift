@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 public protocol ICartRepository {
-    func saveCartItem(_ item: ProductCartDTO) -> AnyPublisher<Void, Error>
-    func fetchCartItems() -> AnyPublisher<[ProductCartDTO], Error>
+    func saveCartItem(_ item: ProductCartDTO) -> Bool
+    func fetchCartItems() -> [ProductCartDTO]
 }
 
 // MARK: In the future, we can decide between using Remote or Local data here
@@ -21,11 +21,11 @@ public final class CartRepository: ICartRepository {
         self.localDataSource = localDataSource
     }
 
-    public func saveCartItem(_ item: ProductCartDTO) -> AnyPublisher<Void, Error> {
-        localDataSource.saveCartItem(item)
+    public func saveCartItem(_ item: ProductCartDTO) -> Bool {
+        localDataSource.insertCartEntity(item)
     }
 
-    public func fetchCartItems() -> AnyPublisher<[ProductCartDTO], Error> {
-        localDataSource.fetchCartItems()
+    public func fetchCartItems() -> [ProductCartDTO] {
+        localDataSource.fetchCart()
     }
 }

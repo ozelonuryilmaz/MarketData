@@ -5,43 +5,47 @@
 //  Created by Onur Yılmaz on 25.07.2025.
 //
 
-import Combine
+
+import Foundation
 import CoreData
 
-public protocol ICartLocalDataSource {
-    func saveCartItem(_ dto: ProductCartDTO) -> AnyPublisher<Void, Error>
-    func fetchCartItems() -> AnyPublisher<[ProductCartDTO], Error>
+public protocol ICartLocalDataSource: AnyObject {
+
+    func fetchCart() -> [ProductCartDTO]
+    
+    @discardableResult
+    func insertCartEntity(_ dto: ProductCartDTO) -> Bool
+    
+    @discardableResult
+    func clearAllCartEntity() -> Bool
 }
 
-public final class CartLocalDataSource: ICartLocalDataSource {
-    private let coreData: BaseCoreDataService<CartItemEntity, ProductCartDTO>
+public class CartLocalDataSource: BaseCoreDataManager<CartItemEntity>, ICartLocalDataSource {
 
-    public init() {
-        let context = CoreDataStack.shared.context
-        self.coreData = BaseCoreDataService<CartItemEntity, ProductCartDTO>(context: context)
+    public func fetchCart() -> [ProductCartDTO] {
+        let fetchRequest: NSFetchRequest<CartItemEntity> = CartItemEntity.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+
+        do {
+            return try managedContext.fetch(fetchRequest).map { $0.toModel() }
+        } catch {
+            return []
+        }
     }
 
-    public func saveCartItem(_ dto: ProductCartDTO) -> AnyPublisher<Void, Error> {
-        Future { promise in
-            do {
-                try self.coreData.save(dto: dto)
-                promise(.success(()))
-            } catch {
-                promise(.failure(error))
-            }
-        }
-        .eraseToAnyPublisher()
+    @discardableResult
+    public func insertCartEntity(_ dto: ProductCartDTO) -> Bool {
+        let cartItemEntity = CartItemEntity(context: managedContext)
+        cartItemEntity.id = dto.id
+        cartItemEntity.name = dto.name
+        cartItemEntity.quantity = Int16(dto.quantity)
+        cartItemEntity.price = dto.price
+        
+        return saveContext()
     }
-
-    public func fetchCartItems() -> AnyPublisher<[ProductCartDTO], Error> {
-        Future { promise in
-            do {
-                let items = try self.coreData.fetchAll()
-                promise(.success(items))
-            } catch {
-                promise(.failure(error))
-            }
-        }
-        .eraseToAnyPublisher()
+    
+    @discardableResult
+    public func clearAllCartEntity() -> Bool {
+        return deleteAllObjectsWithBatchRequest()
     }
 }
